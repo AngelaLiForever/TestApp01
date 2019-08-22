@@ -12,15 +12,22 @@ class TableViewController: UITableViewController{
 
     var itemArray = ["Hello World","How Are You","I Am Fine"]
     
+    var clickedCellText = ""
+    
     let defaults = UserDefaults.standard
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //Angela: In case the default is empty, if not empty store the default item to Array
-        if let items = defaults.array(forKey: "itemArray") as? [String] {
-            itemArray = items
+//        if let items = defaults.array(forKey: "itemArray") as? [String] {
+//            itemArray = items
+//        }
+//
+        if let cellText = defaults.string(forKey: "clickedCellText") {
+           clickedCellText = cellText
         }
         
     }
@@ -39,7 +46,14 @@ class TableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // print(itemArray[indexPath.row])
+        print(itemArray[indexPath.row])
+       // self.defaults.set(self.itemArray, forKey: "itemArray")
+        self.defaults.set(self.itemArray[indexPath.row], forKey: "clickedCellText")
+        
+        let defaultCelltext = defaults.object(forKey:"clickedCellText")
+        
+        print("hi")
+        print(defaultCelltext ?? "fail to display default cell contents")
 
     }
     
